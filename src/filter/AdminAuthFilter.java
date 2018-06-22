@@ -15,7 +15,7 @@ import javax.servlet.http.HttpSession;
 /**
  * Servlet Filter implementation class AdminAuthFilter
  */
-@WebFilter("/admin/debug*")
+@WebFilter("/admin/*")
 public class AdminAuthFilter implements Filter {
 
     /**

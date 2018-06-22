@@ -70,10 +70,10 @@
 										<c:forEach var="i" begin="1" end="${pageTotal}">
 											<li
 												class="paginate_button <c:if test="${i==pageNumber}">active</c:if> "><a
-												href='<c:url value="/admin/article-list?page=${i} }"/>'>${i}</a></li>
+												href='<c:url value="/admin/article-list?page=${i}"/>'>${i}</a></li>
 										</c:forEach>
 										<li class="paginate_button"><a
-											href='<c:url value="/admin/article-list?page=${pageTotal} }"/>'>Last</a></li>
+											href='<c:url value="/admin/article-list?page=${pageTotal}"/>'>Last</a></li>
 									</ul>
 								</div>
 							</div>
