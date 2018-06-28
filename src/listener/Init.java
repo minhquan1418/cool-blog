@@ -11,8 +11,8 @@ import javax.servlet.annotation.WebListener;
 
 import model.business.CategoryLocal;
 import model.business.MenuLocal;
-import model.entities.Category;
-import model.entities.Menu;
+import model.domain.Category;
+import model.domain.Menu;
 
 @WebListener
 public class Init implements ServletContextListener {

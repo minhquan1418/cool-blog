@@ -4,7 +4,7 @@ import java.util.List;
 
 import javax.ejb.Local;
 
-import model.entities.Menu;
+import model.domain.Menu;
 
 @Local
 public interface MenuLocal {

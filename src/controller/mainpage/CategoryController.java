@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import model.business.ArticleLocal;
-import model.entities.Article;
+import model.domain.Article;
 
 /**
  * Servlet implementation class CategoryController
@@ -55,7 +55,8 @@ public class CategoryController extends HttpServlet {
 		String page = request.getParameter("page");
 		int pageNumber = (page == null) ? 1 : Integer.parseInt(page);
 		int pageSize = 3;
-		int pageTotal = (int) Math.ceil((articleLocal.findAllArticles().size() / (double) pageSize));
+		int pageTotal = (int) Math.ceil((articleLocal.findArticlesByIdCategoryPaginate(idCategory).size() / (double) pageSize));
+		System.out.println(pageTotal);
 		
 		List<Article> articles = articleLocal.findArticlesByIdCategory(idCategory, pageNumber, pageSize);
 		

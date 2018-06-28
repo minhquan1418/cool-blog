@@ -9,7 +9,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
-import model.entities.Article;
+import model.domain.Article;
 
 /**
  * Session Bean implementation class ArticleBean
@@ -37,6 +37,14 @@ public class ArticleBean implements ArticleLocal {
 		query.setParameter("idCategory", idCategory);
 		query.setFirstResult((pageNumber - 1) * pageSize);
 		query.setMaxResults(pageSize);
+		List<Article> articles = query.getResultList();
+		return articles;
+	}
+	
+	@Override
+	public List<Article> findArticlesByIdCategoryPaginate(int idCategory) {
+		Query query = em.createQuery("SELECT a FROM Article a WHERE a.category.id = :idCategory");
+		query.setParameter("idCategory", idCategory);
 		List<Article> articles = query.getResultList();
 		return articles;
 	}

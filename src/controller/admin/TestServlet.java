@@ -12,9 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import model.business.ArticleLocal;
-import model.entities.Article;
-//import model.entities.CategoryBean;
-//import model.entities.CategoryRemote;
+import model.domain.Article;
 
 /**
  * Servlet implementation class TestServlet

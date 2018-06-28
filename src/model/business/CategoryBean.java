@@ -8,7 +8,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
-import model.entities.Category;
+import model.domain.Category;
 
 /**
  * Session Bean implementation class CategoryBean

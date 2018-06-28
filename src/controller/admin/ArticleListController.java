@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import model.business.ArticleLocal;
-import model.entities.Article;
+import model.domain.Article;
 
 /**
  * Servlet implementation class ArticlesController

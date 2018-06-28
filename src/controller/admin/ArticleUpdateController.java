@@ -18,8 +18,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import model.business.ArticleLocal;
 import model.business.CategoryLocal;
-import model.entities.Article;
-import model.entities.Category;
+import model.domain.Article;
+import model.domain.Category;
 
 /**
  * Servlet implementation class ArticleUpdateController

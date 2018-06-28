@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import model.business.CategoryLocal;
-import model.entities.Category;
+import model.domain.Category;
 
 /**
  * Servlet implementation class CategoryAddController

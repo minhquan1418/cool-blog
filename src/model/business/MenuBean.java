@@ -9,7 +9,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceUnit;
 import javax.persistence.Query;
 
-import model.entities.Menu;
+import model.domain.Menu;
 
 /**
  * Session Bean implementation class MenuBean

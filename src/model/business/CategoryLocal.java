@@ -4,7 +4,7 @@ import java.util.List;
 
 import javax.ejb.Local;
 
-import model.entities.Category;
+import model.domain.Category;
 
 @Local
 public interface CategoryLocal {

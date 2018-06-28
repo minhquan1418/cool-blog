@@ -26,7 +26,7 @@
 	style="padding: 5px 20px 2px 20px; background: none; border: 0;">
 	<p>
 		<span class="butons"> <c:forEach var="i" begin="1"
-				end="${pageTotal}">
+				end="1">
 				<a href=<c:url value="/category?id=${idCategory}&page=${pageTotal -i + 1}"/>
 					<c:if test="${pageNumber == pageTotal -i + 1}">class="active"</c:if>>${pageTotal -i + 1}</a>
 			</c:forEach>
