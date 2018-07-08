@@ -58,14 +58,6 @@ public class CategoryAddController extends HttpServlet {
 		Category category = new Category();
 		category.setName(request.getParameter("name"));
 
-		// model
-		try {
-			categoryLocal = (CategoryLocal) new InitialContext()
-					.lookup("java:global/cool-blog/CategoryBean!model.business.CategoryLocal");
-		} catch (NamingException e) {
-			e.printStackTrace();
-		}
-
 		// add category
 		categoryLocal.addCategory(category);
 

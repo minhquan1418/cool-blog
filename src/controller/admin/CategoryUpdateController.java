@@ -68,14 +68,6 @@ public class CategoryUpdateController extends HttpServlet {
 		category.setId(Integer.parseInt(request.getParameter("id")));
 		category.setName(request.getParameter("name"));
 
-		// lookup
-		try {
-			categoryLocal = (CategoryLocal) new InitialContext()
-					.lookup("java:global/cool-blog/CategoryBean!model.business.CategoryLocal");
-		} catch (NamingException e) {
-			e.printStackTrace();
-		}
-
 		// update
 		categoryLocal.updateCategoryById(category);
 

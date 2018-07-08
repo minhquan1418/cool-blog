@@ -47,7 +47,8 @@ public class ArticleAddControlller extends HttpServlet {
 		request.setAttribute("contentTitle", getServletConfig().getInitParameter("contentTitle"));
 		request.setAttribute("contentFilePath", getServletConfig().getInitParameter("contentFilePath"));
 
-		// lookup - (able to use for remote bean)
+		// local bean lookup name: java:global/cool-blog/CategoryBean!model.business.CategoryLocal
+		// remote bean lookup name: 
 		try {
 			categoryLocal = (CategoryLocal) new InitialContext()
 					.lookup("java:global/cool-blog/CategoryBean!model.business.CategoryLocal");
@@ -74,7 +75,7 @@ public class ArticleAddControlller extends HttpServlet {
 		article.setCategory(new Category(request.getParameter("idCategory")));
 		article.setCreationTime(new Date());
 
-		// model
+		// lookup
 		try {
 			articleLocal = (ArticleLocal) new InitialContext()
 					.lookup("java:global/cool-blog/ArticleBean!model.business.ArticleLocal");

@@ -71,16 +71,6 @@ public class ArticleUpdateController extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// lookup
-		try {
-			articleLocal = (ArticleLocal) new InitialContext()
-					.lookup("java:global/cool-blog/ArticleBean!model.business.ArticleLocal");
-			categoryLocal = (CategoryLocal) new InitialContext()
-					.lookup("java:global/cool-blog/CategoryBean!model.business.CategoryLocal");
-		} catch (NamingException e) {
-			e.printStackTrace();
-		}
-
 		Article article = new Article();
 		article.setId(Integer.parseInt(request.getParameter("id")));
 		article.setName(request.getParameter("name"));
