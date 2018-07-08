@@ -1,6 +1,7 @@
 package filter;
 
 import java.io.IOException;
+
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -41,7 +42,6 @@ public class AdminAuthFilter implements Filter {
 		HttpServletResponse res = (HttpServletResponse) response;
 
 		HttpSession session = req.getSession(false);
-		String uri = req.getRequestURI();
 
 		if (session == null || session.getAttribute("username") == null) {
 			res.sendRedirect("../admin-login");

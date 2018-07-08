@@ -1,8 +1,8 @@
 package controller.admin;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 
+import javax.ejb.EJB;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.servlet.RequestDispatcher;
@@ -24,7 +24,9 @@ import model.domain.Category;
 		@WebInitParam(name = "contentFilePath", value = "category_update") })
 public class CategoryUpdateController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private CategoryLocal categoryLocal = null;
+
+	@EJB
+	private CategoryLocal categoryLocal;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -46,13 +48,6 @@ public class CategoryUpdateController extends HttpServlet {
 		// get id of the selected category
 		int id = Integer.parseInt(request.getParameter("id"));
 
-		// model
-		try {
-			categoryLocal = (CategoryLocal) new InitialContext()
-					.lookup("java:global/cool-blog/CategoryBean!model.business.CategoryLocal");
-		} catch (NamingException e) {
-			e.printStackTrace();
-		}
 		// get the selected category
 		Category category = categoryLocal.findCategoryById(id);
 

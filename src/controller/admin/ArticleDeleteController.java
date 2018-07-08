@@ -2,8 +2,7 @@ package controller.admin;
 
 import java.io.IOException;
 
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
+import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -11,7 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import model.business.ArticleLocal;
-import model.business.CategoryLocal;
 
 /**
  * Servlet implementation class ArticleDeleteController
@@ -19,6 +17,8 @@ import model.business.CategoryLocal;
 @WebServlet("/admin/article-delete")
 public class ArticleDeleteController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+
+	@EJB
 	private ArticleLocal articleLocal = null;
 
 	/**
@@ -35,13 +35,6 @@ public class ArticleDeleteController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// lookup
-		try {
-			articleLocal = (ArticleLocal) new InitialContext()
-					.lookup("java:global/cool-blog/ArticleBean!model.business.ArticleLocal");
-		} catch (NamingException e) {
-			e.printStackTrace();
-		}
 
 		// delete category
 		articleLocal.deleteArticleById(Integer.parseInt(request.getParameter("id")));

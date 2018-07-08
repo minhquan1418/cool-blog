@@ -3,8 +3,7 @@ package controller.mainpage;
 import java.io.IOException;
 import java.util.List;
 
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
+import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebInitParam;
@@ -22,7 +21,9 @@ import model.domain.Article;
 @WebServlet(urlPatterns = "/home", initParams = { @WebInitParam(name = "contentFilePath", value = "home") })
 public class HomeController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private ArticleLocal articleLocal = null;
+
+	@EJB
+	private ArticleLocal articleLocal;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -39,14 +40,6 @@ public class HomeController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		request.setAttribute("contentFilePath", getServletConfig().getInitParameter("contentFilePath"));
-
-		// lookup
-		try {
-			articleLocal = (ArticleLocal) new InitialContext()
-					.lookup("java:global/cool-blog/ArticleBean!model.business.ArticleLocal");
-		} catch (NamingException e) {
-			e.printStackTrace();
-		}
 
 		// pagination
 		String page = request.getParameter("page");

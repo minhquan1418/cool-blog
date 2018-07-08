@@ -2,8 +2,7 @@ package controller.mainpage;
 
 import java.io.IOException;
 
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
+import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebInitParam;
@@ -21,7 +20,9 @@ import model.domain.Article;
 @WebServlet(urlPatterns = "/article-single", initParams = @WebInitParam(name = "contentFilePath", value = "article_single"))
 public class ArticleSingleController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private ArticleLocal articleLocal = null;
+
+	@EJB
+	private ArticleLocal articleLocal;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -38,14 +39,6 @@ public class ArticleSingleController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		request.setAttribute("contentFilePath", getServletConfig().getInitParameter("contentFilePath"));
-
-		// lookup
-		try {
-			articleLocal = (ArticleLocal) new InitialContext()
-					.lookup("java:global/cool-blog/ArticleBean!model.business.ArticleLocal");
-		} catch (NamingException e) {
-			e.printStackTrace();
-		}
 
 		// get data for article
 		Article article = articleLocal.findArticleById(Integer.parseInt(request.getParameter("id")));

@@ -1,8 +1,8 @@
 package controller.admin;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 
+import javax.ejb.EJB;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.servlet.RequestDispatcher;
@@ -24,7 +24,9 @@ import model.domain.Category;
 		@WebInitParam(name = "contentFilePath", value = "category_add") })
 public class CategoryAddController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private CategoryLocal categoryLocal = null;
+
+	@EJB
+	private CategoryLocal categoryLocal;
 
 	/**
 	 * @see HttpServlet#HttpServlet()

@@ -2,8 +2,7 @@ package controller.admin;
 
 import java.io.IOException;
 
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
+import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -18,7 +17,9 @@ import model.business.CategoryLocal;
 @WebServlet(urlPatterns = "/admin/category-delete")
 public class CategoryDeleteController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private CategoryLocal categoryLocal = null;
+	
+	@EJB
+	private CategoryLocal categoryLocal;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -34,13 +35,6 @@ public class CategoryDeleteController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// lookup
-		try {
-			categoryLocal = (CategoryLocal) new InitialContext()
-					.lookup("java:global/cool-blog/CategoryBean!model.business.CategoryLocal");
-		} catch (NamingException e) {
-			e.printStackTrace();
-		}
 
 		// delete category
 		categoryLocal.deleteCategoryById(Integer.parseInt(request.getParameter("id")));

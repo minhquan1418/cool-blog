@@ -3,8 +3,7 @@ package controller.mainpage;
 import java.io.IOException;
 import java.util.List;
 
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
+import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebInitParam;
@@ -22,6 +21,8 @@ import model.domain.Article;
 @WebServlet(urlPatterns = "/category", initParams = { @WebInitParam(name = "contentFilePath", value = "category") })
 public class CategoryController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+
+	@EJB
 	private ArticleLocal articleLocal = null;
 
 	/**
@@ -40,14 +41,6 @@ public class CategoryController extends HttpServlet {
 			throws ServletException, IOException {
 		request.setAttribute("contentFilePath", getServletConfig().getInitParameter("contentFilePath"));
 		int idCategory = Integer.parseInt(request.getParameter("id"));
-
-		// lookup
-		try {
-			articleLocal = (ArticleLocal) new InitialContext()
-					.lookup("java:global/cool-blog/ArticleBean!model.business.ArticleLocal");
-		} catch (NamingException e) {
-			e.printStackTrace();
-		}
 
 		// pagination
 		String page = request.getParameter("page");

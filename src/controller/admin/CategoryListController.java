@@ -3,8 +3,7 @@ package controller.admin;
 import java.io.IOException;
 import java.util.List;
 
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
+import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebInitParam;
@@ -24,7 +23,9 @@ import model.domain.Category;
 		@WebInitParam(name = "contentFilePath", value = "category_list") })
 public class CategoryListController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private CategoryLocal categoryLocal = null;
+
+	@EJB
+	private CategoryLocal categoryLocal;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -42,14 +43,6 @@ public class CategoryListController extends HttpServlet {
 			throws ServletException, IOException {
 		request.setAttribute("contentTitle", getServletConfig().getInitParameter("contentTitle"));
 		request.setAttribute("contentFilePath", getServletConfig().getInitParameter("contentFilePath"));
-
-		// lookup
-		try {
-			categoryLocal = (CategoryLocal) new InitialContext()
-					.lookup("java:global/cool-blog/CategoryBean!model.business.CategoryLocal");
-		} catch (NamingException e) {
-			e.printStackTrace();
-		}
 
 		// pagination
 		String page = request.getParameter("page");

@@ -1,11 +1,11 @@
 package controller.admin;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
+import javax.ejb.EJB;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.servlet.RequestDispatcher;
@@ -29,8 +29,11 @@ import model.domain.Category;
 		@WebInitParam(name = "contentFilePath", value = "article_update") })
 public class ArticleUpdateController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private ArticleLocal articleLocal = null;
-	private CategoryLocal categoryLocal = null;
+
+	@EJB
+	private ArticleLocal articleLocal;
+	@EJB
+	private CategoryLocal categoryLocal;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -48,16 +51,6 @@ public class ArticleUpdateController extends HttpServlet {
 			throws ServletException, IOException {
 		request.setAttribute("contentTitle", getServletConfig().getInitParameter("contentTitle"));
 		request.setAttribute("contentFilePath", getServletConfig().getInitParameter("contentFilePath"));
-
-		// lookup
-		try {
-			articleLocal = (ArticleLocal) new InitialContext()
-					.lookup("java:global/cool-blog/ArticleBean!model.business.ArticleLocal");
-			categoryLocal = (CategoryLocal) new InitialContext()
-					.lookup("java:global/cool-blog/CategoryBean!model.business.CategoryLocal");
-		} catch (NamingException e) {
-			e.printStackTrace();
-		}
 
 		// get the selected article
 		Article article = articleLocal.findArticleById(Integer.parseInt(request.getParameter("id")));

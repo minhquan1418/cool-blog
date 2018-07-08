@@ -1,7 +1,6 @@
 package controller.admin;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.Date;
 import java.util.List;
 
@@ -48,7 +47,7 @@ public class ArticleAddControlller extends HttpServlet {
 		request.setAttribute("contentTitle", getServletConfig().getInitParameter("contentTitle"));
 		request.setAttribute("contentFilePath", getServletConfig().getInitParameter("contentFilePath"));
 
-		// category model
+		// lookup - (able to use for remote bean)
 		try {
 			categoryLocal = (CategoryLocal) new InitialContext()
 					.lookup("java:global/cool-blog/CategoryBean!model.business.CategoryLocal");
