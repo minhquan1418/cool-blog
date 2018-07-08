@@ -19,37 +19,43 @@ import model.business.CategoryLocal;
 @WebServlet("/admin/article-delete")
 public class ArticleDeleteController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private ArticleLocal articleLocal = null; 
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public ArticleDeleteController() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+	private ArticleLocal articleLocal = null;
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public ArticleDeleteController() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// lookup
 		try {
-			articleLocal = (ArticleLocal) new InitialContext().lookup("java:global/cool-blog/ArticleBean!model.business.ArticleLocal");
+			articleLocal = (ArticleLocal) new InitialContext()
+					.lookup("java:global/cool-blog/ArticleBean!model.business.ArticleLocal");
 		} catch (NamingException e) {
 			e.printStackTrace();
 		}
-		
+
 		// delete category
 		articleLocal.deleteArticleById(Integer.parseInt(request.getParameter("id")));
-		
+
 		// send redirect
 		response.sendRedirect("article-list");
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}

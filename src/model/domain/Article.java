@@ -15,25 +15,25 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
-@Table(name="article")
+@Table(name = "article")
 public class Article {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	
-	@Column(name="name")
+
+	@Column(name = "name")
 	private String name;
-	
-	@Column(name="content")
+
+	@Column(name = "content")
 	private String content;
-	
-	@Column(name="creation_time")
+
+	@Column(name = "creation_time")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date creationTime;
-	
+
 	@ManyToOne
-	@JoinColumn(name="id_category")
+	@JoinColumn(name = "id_category")
 	private Category category;
 
 	// getters and setters

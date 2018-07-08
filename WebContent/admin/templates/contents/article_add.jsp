@@ -20,9 +20,12 @@
 
 							<div class="form-group">
 								<label>Content</label>
-								<textarea class="form-control" rows="5" name="content" id="content"></textarea>
+								<textarea class="form-control" rows="5" name="content"
+									id="content"></textarea>
 								<script>
-									CKEDITOR.replace('content', { language: 'en' });
+									CKEDITOR.replace('content', {
+										language : 'en'
+									});
 								</script>
 							</div>
 

@@ -24,66 +24,70 @@ import model.domain.Category;
 /**
  * Servlet implementation class ArticleUpdateController
  */
-@WebServlet(
-	urlPatterns = "/admin/article-update", 
-	initParams = {
+@WebServlet(urlPatterns = "/admin/article-update", initParams = {
 		@WebInitParam(name = "contentTitle", value = "Updating Article"),
-		@WebInitParam(name = "contentFilePath", value = "article_update") 
-	}
-)
+		@WebInitParam(name = "contentFilePath", value = "article_update") })
 public class ArticleUpdateController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private ArticleLocal articleLocal = null;
 	private CategoryLocal categoryLocal = null;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public ArticleUpdateController() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public ArticleUpdateController() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		request.setAttribute("contentTitle", getServletConfig().getInitParameter("contentTitle"));
 		request.setAttribute("contentFilePath", getServletConfig().getInitParameter("contentFilePath"));
-		
+
 		// lookup
 		try {
-			articleLocal = (ArticleLocal) new InitialContext().lookup("java:global/cool-blog/ArticleBean!model.business.ArticleLocal");
-			categoryLocal = (CategoryLocal) new InitialContext().lookup("java:global/cool-blog/CategoryBean!model.business.CategoryLocal");
+			articleLocal = (ArticleLocal) new InitialContext()
+					.lookup("java:global/cool-blog/ArticleBean!model.business.ArticleLocal");
+			categoryLocal = (CategoryLocal) new InitialContext()
+					.lookup("java:global/cool-blog/CategoryBean!model.business.CategoryLocal");
 		} catch (NamingException e) {
 			e.printStackTrace();
 		}
-		
+
 		// get the selected article
-		Article article = articleLocal.findArticleById(Integer.parseInt(request.getParameter("id")));		
+		Article article = articleLocal.findArticleById(Integer.parseInt(request.getParameter("id")));
 		// set request attribute
 		request.setAttribute("article", article);
-		
+
 		// get all categories
 		List<Category> categories = categoryLocal.findAllCategories();
 		request.setAttribute("categories", categories);
-		
+
 		RequestDispatcher view = request.getRequestDispatcher("layout.jsp");
 		view.forward(request, response);
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// lookup
 		try {
-			articleLocal = (ArticleLocal) new InitialContext().lookup("java:global/cool-blog/ArticleBean!model.business.ArticleLocal");
-			categoryLocal = (CategoryLocal) new InitialContext().lookup("java:global/cool-blog/CategoryBean!model.business.CategoryLocal");
+			articleLocal = (ArticleLocal) new InitialContext()
+					.lookup("java:global/cool-blog/ArticleBean!model.business.ArticleLocal");
+			categoryLocal = (CategoryLocal) new InitialContext()
+					.lookup("java:global/cool-blog/CategoryBean!model.business.CategoryLocal");
 		} catch (NamingException e) {
 			e.printStackTrace();
 		}
-		
+
 		Article article = new Article();
 		article.setId(Integer.parseInt(request.getParameter("id")));
 		article.setName(request.getParameter("name"));
@@ -97,10 +101,10 @@ public class ArticleUpdateController extends HttpServlet {
 
 		Category category = categoryLocal.findCategoryById(Integer.parseInt(request.getParameter("idCategory")));
 		article.setCategory(category);
-		
+
 		// update article
 		articleLocal.updateArticleById(article);
-		
+
 		// redirect
 		response.sendRedirect("article-update?id=" + request.getParameter("id"));
 	}

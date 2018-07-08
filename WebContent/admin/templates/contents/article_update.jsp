@@ -26,10 +26,13 @@
 
 							<div class="form-group">
 								<label>Content</label>
-								<textarea class="form-control" rows="5" name="content" id="content">${article.content}</textarea>
+								<textarea class="form-control" rows="5" name="content"
+									id="content">${article.content}</textarea>
 							</div>
 							<script>
-								CKEDITOR.replace('content', { language : 'en' });
+								CKEDITOR.replace('content', {
+									language : 'en'
+								});
 							</script>
 
 							<div class="form-group">

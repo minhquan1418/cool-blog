@@ -19,13 +19,9 @@ import model.domain.Category;
 /**
  * Servlet implementation class CategoryUpdateController
  */
-@WebServlet(
-	urlPatterns = "/admin/category-update", 
-	initParams = {
+@WebServlet(urlPatterns = "/admin/category-update", initParams = {
 		@WebInitParam(name = "contentTitle", value = "Updating Category"),
-		@WebInitParam(name = "contentFilePath", value = "category_update") 
-	}
-)
+		@WebInitParam(name = "contentFilePath", value = "category_update") })
 public class CategoryUpdateController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private CategoryLocal categoryLocal = null;
@@ -52,7 +48,8 @@ public class CategoryUpdateController extends HttpServlet {
 
 		// model
 		try {
-			categoryLocal = (CategoryLocal) new InitialContext().lookup("java:global/cool-blog/CategoryBean!model.business.CategoryLocal");
+			categoryLocal = (CategoryLocal) new InitialContext()
+					.lookup("java:global/cool-blog/CategoryBean!model.business.CategoryLocal");
 		} catch (NamingException e) {
 			e.printStackTrace();
 		}
@@ -70,21 +67,23 @@ public class CategoryUpdateController extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		Category category = new Category();
 		category.setId(Integer.parseInt(request.getParameter("id")));
 		category.setName(request.getParameter("name"));
 
 		// lookup
 		try {
-			categoryLocal = (CategoryLocal) new InitialContext().lookup("java:global/cool-blog/CategoryBean!model.business.CategoryLocal");
+			categoryLocal = (CategoryLocal) new InitialContext()
+					.lookup("java:global/cool-blog/CategoryBean!model.business.CategoryLocal");
 		} catch (NamingException e) {
 			e.printStackTrace();
 		}
-		
+
 		// update
 		categoryLocal.updateCategoryById(category);
-		
+
 		response.sendRedirect("category-update?id=" + request.getParameter("id"));
 	}
 

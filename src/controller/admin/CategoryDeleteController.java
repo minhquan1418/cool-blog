@@ -19,37 +19,42 @@ import model.business.CategoryLocal;
 public class CategoryDeleteController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private CategoryLocal categoryLocal = null;
-	
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public CategoryDeleteController() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public CategoryDeleteController() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// lookup
 		try {
-			categoryLocal = (CategoryLocal) new InitialContext().lookup("java:global/cool-blog/CategoryBean!model.business.CategoryLocal");
+			categoryLocal = (CategoryLocal) new InitialContext()
+					.lookup("java:global/cool-blog/CategoryBean!model.business.CategoryLocal");
 		} catch (NamingException e) {
 			e.printStackTrace();
 		}
-		
+
 		// delete category
 		categoryLocal.deleteCategoryById(Integer.parseInt(request.getParameter("id")));
-		
+
 		// send redirect
 		response.sendRedirect("category-list");
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}

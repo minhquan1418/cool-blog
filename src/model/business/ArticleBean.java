@@ -20,9 +20,9 @@ public class ArticleBean implements ArticleLocal {
 
 	@PersistenceContext(name = "JPADB")
 	private EntityManager em;
- 
-    public ArticleBean() {
-    }
+
+	public ArticleBean() {
+	}
 
 	@Override
 	public List<Article> findAllArticles() {
@@ -33,14 +33,15 @@ public class ArticleBean implements ArticleLocal {
 
 	@Override
 	public List<Article> findArticlesByIdCategory(int idCategory, int pageNumber, int pageSize) {
-		Query query = em.createQuery("SELECT a FROM Article a WHERE a.category.id = :idCategory ORDER BY a.creationTime DESC");
+		Query query = em
+				.createQuery("SELECT a FROM Article a WHERE a.category.id = :idCategory ORDER BY a.creationTime DESC");
 		query.setParameter("idCategory", idCategory);
 		query.setFirstResult((pageNumber - 1) * pageSize);
 		query.setMaxResults(pageSize);
 		List<Article> articles = query.getResultList();
 		return articles;
 	}
-	
+
 	@Override
 	public List<Article> findArticlesByIdCategoryPaginate(int idCategory) {
 		Query query = em.createQuery("SELECT a FROM Article a WHERE a.category.id = :idCategory");
@@ -67,7 +68,7 @@ public class ArticleBean implements ArticleLocal {
 		em.remove(article);
 		return;
 	}
-	
+
 	@Override
 	public Article addArticle(Article article) {
 		em.persist(article);
@@ -81,7 +82,7 @@ public class ArticleBean implements ArticleLocal {
 		query.setMaxResults(pageSize);
 		List<Article> articles = query.getResultList();
 		return articles;
-		
+
 	}
 
 }

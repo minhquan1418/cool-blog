@@ -9,9 +9,14 @@ import model.domain.Category;
 @Local
 public interface CategoryLocal {
 	List<Category> findAllCategories();
+
 	List<Category> findCategoriesPaginate(int pageNumber, int pageSize);
+
 	Category findCategoryById(int id);
+
 	Category updateCategoryById(Category category);
+
 	Category addCategory(Category category);
+
 	void deleteCategoryById(int id);
 }

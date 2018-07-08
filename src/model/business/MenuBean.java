@@ -17,11 +17,11 @@ import model.domain.Menu;
 @Stateless
 @LocalBean
 public class MenuBean implements MenuLocal {
-	@PersistenceContext(name="JPADB")
+	@PersistenceContext(name = "JPADB")
 	private EntityManager em;
-	
-    public MenuBean() {
-    }
+
+	public MenuBean() {
+	}
 
 	@Override
 	public List<Menu> findMenusByPosition(int position) {

@@ -12,21 +12,21 @@ import javax.persistence.Table;
 @Table(name = "menu")
 public class Menu implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@GeneratedValue
 	private int id;
-	
-	@Column(name="title")
+
+	@Column(name = "title")
 	private String title;
-	
-	@Column(name="link")
+
+	@Column(name = "link")
 	private String link;
-	
-	@Column(name="position")
+
+	@Column(name = "position")
 	private int position;
 
-	//getters and setters
+	// getters and setters
 	public int getId() {
 		return id;
 	}

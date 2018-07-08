@@ -16,12 +16,12 @@ import model.domain.Category;
 @Stateless
 @LocalBean
 public class CategoryBean implements CategoryLocal {
-	
+
 	@PersistenceContext(unitName = "JPADB")
-    private EntityManager em;
-	
-    public CategoryBean() {
-    }
+	private EntityManager em;
+
+	public CategoryBean() {
+	}
 
 	@Override
 	public Category findCategoryById(int id) {
@@ -46,7 +46,7 @@ public class CategoryBean implements CategoryLocal {
 	@Override
 	public Category addCategory(Category category) {
 		category.setNumberOfArticles(0);
-		
+
 		em.persist(category);
 		return category;
 	}

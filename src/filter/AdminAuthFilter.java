@@ -18,12 +18,12 @@ import javax.servlet.http.HttpSession;
 @WebFilter("/admin/*")
 public class AdminAuthFilter implements Filter {
 
-    /**
-     * Default constructor. 
-     */
-    public AdminAuthFilter() {
-        // TODO Auto-generated constructor stub
-    }
+	/**
+	 * Default constructor.
+	 */
+	public AdminAuthFilter() {
+		// TODO Auto-generated constructor stub
+	}
 
 	/**
 	 * @see Filter#destroy()
@@ -35,17 +35,18 @@ public class AdminAuthFilter implements Filter {
 	/**
 	 * @see Filter#doFilter(ServletRequest, ServletResponse, FilterChain)
 	 */
-	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
+			throws IOException, ServletException {
 		HttpServletRequest req = (HttpServletRequest) request;
 		HttpServletResponse res = (HttpServletResponse) response;
-		
+
 		HttpSession session = req.getSession(false);
 		String uri = req.getRequestURI();
-		
+
 		if (session == null || session.getAttribute("username") == null) {
 			res.sendRedirect("../admin-login");
 		} else {
-			chain.doFilter(request, response);			
+			chain.doFilter(request, response);
 		}
 	}
 

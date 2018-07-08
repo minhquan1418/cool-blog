@@ -19,57 +19,57 @@ import model.domain.Article;
 /**
  * Servlet implementation class HomeController
  */
-@WebServlet(
-	urlPatterns="/home",
-	initParams = {			
-			@WebInitParam(name = "contentFilePath", value = "home")
-		}
-)
+@WebServlet(urlPatterns = "/home", initParams = { @WebInitParam(name = "contentFilePath", value = "home") })
 public class HomeController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private ArticleLocal articleLocal = null;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public HomeController() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public HomeController() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		request.setAttribute("contentFilePath", getServletConfig().getInitParameter("contentFilePath"));
-		
+
 		// lookup
 		try {
-			articleLocal = (ArticleLocal) new InitialContext().lookup("java:global/cool-blog/ArticleBean!model.business.ArticleLocal");
+			articleLocal = (ArticleLocal) new InitialContext()
+					.lookup("java:global/cool-blog/ArticleBean!model.business.ArticleLocal");
 		} catch (NamingException e) {
 			e.printStackTrace();
 		}
-		
+
 		// pagination
 		String page = request.getParameter("page");
 		int pageNumber = (page == null) ? 1 : Integer.parseInt(page);
 		int pageSize = 3;
 		int pageTotal = (int) Math.ceil((articleLocal.findAllArticles().size() / (double) pageSize));
-		
+
 		List<Article> articles = articleLocal.findArticlesPaginate(pageNumber, pageSize);
-		
+
 		request.setAttribute("articles", articles);
 		request.setAttribute("pageTotal", pageTotal);
 		request.setAttribute("pageNumber", pageNumber);
-		
+
 		RequestDispatcher view = request.getRequestDispatcher("layout.jsp");
 		view.forward(request, response);
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}

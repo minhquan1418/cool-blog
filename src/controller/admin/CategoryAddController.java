@@ -25,19 +25,21 @@ import model.domain.Category;
 public class CategoryAddController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private CategoryLocal categoryLocal = null;
-	
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public CategoryAddController() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public CategoryAddController() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		request.setAttribute("contentTitle", getServletConfig().getInitParameter("contentTitle"));
 		request.setAttribute("contentFilePath", getServletConfig().getInitParameter("contentFilePath"));
 
@@ -46,22 +48,25 @@ public class CategoryAddController extends HttpServlet {
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		Category category = new Category();
-		category.setName(request.getParameter("name"));		
-		
+		category.setName(request.getParameter("name"));
+
 		// model
 		try {
-			categoryLocal = (CategoryLocal) new InitialContext().lookup("java:global/cool-blog/CategoryBean!model.business.CategoryLocal");
+			categoryLocal = (CategoryLocal) new InitialContext()
+					.lookup("java:global/cool-blog/CategoryBean!model.business.CategoryLocal");
 		} catch (NamingException e) {
 			e.printStackTrace();
 		}
-		
+
 		// add category
 		categoryLocal.addCategory(category);
-		
+
 		response.sendRedirect("category-list");
 	}
 

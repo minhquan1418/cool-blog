@@ -19,59 +19,60 @@ import model.domain.Article;
 /**
  * Servlet implementation class ArticlesController
  */
-@WebServlet(
-	urlPatterns = "/admin/article-list",
-	initParams = {
+@WebServlet(urlPatterns = "/admin/article-list", initParams = {
 		@WebInitParam(name = "contentTitle", value = "Articles"),
-		@WebInitParam(name = "contentFilePath", value = "article_list")
-	}
-)
+		@WebInitParam(name = "contentFilePath", value = "article_list") })
 public class ArticleListController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private ArticleLocal articleLocal = null;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public ArticleListController() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public ArticleListController() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		request.setAttribute("contentTitle", getServletConfig().getInitParameter("contentTitle"));
 		request.setAttribute("contentFilePath", getServletConfig().getInitParameter("contentFilePath"));
-				
+
 		// lookup
 		try {
-			articleLocal = (ArticleLocal) new InitialContext().lookup("java:global/cool-blog/ArticleBean!model.business.ArticleLocal");
+			articleLocal = (ArticleLocal) new InitialContext()
+					.lookup("java:global/cool-blog/ArticleBean!model.business.ArticleLocal");
 		} catch (NamingException e) {
 			e.printStackTrace();
 		}
-		
+
 		// pagination
 		String page = request.getParameter("page");
 		int pageNumber = (page == null) ? 1 : Integer.parseInt(page);
 		int pageSize = 3;
 		int pageTotal = (int) Math.ceil((articleLocal.findAllArticles().size() / (double) pageSize));
-		
+
 		List<Article> articles = articleLocal.findArticlesPaginate(pageNumber, pageSize);
-		
+
 		request.setAttribute("articles", articles);
 		request.setAttribute("pageTotal", pageTotal);
 		request.setAttribute("pageNumber", pageNumber);
-		
+
 		RequestDispatcher view = request.getRequestDispatcher("layout.jsp");
 		view.forward(request, response);
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
