@@ -47,8 +47,14 @@ public class ArticleAddControlller extends HttpServlet {
 		request.setAttribute("contentTitle", getServletConfig().getInitParameter("contentTitle"));
 		request.setAttribute("contentFilePath", getServletConfig().getInitParameter("contentFilePath"));
 
-		// local bean lookup name: java:global/cool-blog/CategoryBean!model.business.CategoryLocal
-		// remote bean lookup name: 
+		/*
+		 * remote bean lookup properties: 
+		 * LOOKUP_STRING = "ejb:/hello-ejb//CategoryBean!example.model.business.CategoryRemote"
+		 * INITIAL_CONTEXT_FACTORY = "org.wildfly.naming.client.WildFlyInitialContextFactory"
+		 * PROVIDER_URL = "remote+http://localhost:8080"; 
+		 */
+		// local bean lookup name:
+		// java:global/cool-blog/CategoryBean!model.business.CategoryLocal
 		try {
 			categoryLocal = (CategoryLocal) new InitialContext()
 					.lookup("java:global/cool-blog/CategoryBean!model.business.CategoryLocal");
